@@ -1,5 +1,4 @@
 ./build/
 *.axf
-*.ld
 *.bin
 *.o
