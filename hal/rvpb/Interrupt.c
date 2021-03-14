@@ -4,6 +4,9 @@
 #include "HalInterrupt.h"
 #include "armcpu.h"
 
+typedef void (*InterHdlr_fptr) (void);
+#define INTERRUPT_HANDLER_NUM 255
+
 extern volatile GicCput_t* GicCpu;
 extern volatile GicDist_t* GicDist;
 
