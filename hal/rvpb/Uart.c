@@ -5,6 +5,7 @@
 
 extern volatile PL011_t* Uart;
 static void interrupt_handler(void);
+uint8_t Hal_uart_get_char(void);
 
 void Hal_uart_init(void)
 {
