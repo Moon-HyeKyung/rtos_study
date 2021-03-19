@@ -7,11 +7,14 @@
 #include "HalTimer.h"
 #include "stdlib.h"
 
+#include "kernel.h"
 #include "task.h"
 
 static void Hw_init(void);
 
 static void Timer_test(void); // Timer method
+
+static void Kernel_init(void); // kernel init
 
 void User_task0(void);
 void User_task1(void);
@@ -20,7 +23,6 @@ void User_task2(void);
 void main(void)
 {
 	Hw_init();
-
 	uint32_t i = 100;
 	while(i--)
 	{
@@ -29,16 +31,19 @@ void main(void)
 	Hal_uart_put_char('\n');
 
 	putstr("Hello World!\n");
-	//
+
 	// i = 100;
 	// while(i--)
 	// {
 	// 	uint8_t ch = Hal_uart_get_char();
 	// 	Hal_uart_put_char(ch);
 	// }
-	Timer_test(); // Timer 함수 호출
+
+	Kernel_init();
+	//Timer_test(); // Timer 함수 호출
 
 }
+
 static void Hw_init(void)
 {
     Hal_interrupt_init();
@@ -79,6 +84,8 @@ static void Kernel_init(void)
     {
         putstr("Task2 creation fail\n");
     }
+
+		 Kernel_task_start();
 }
 
 //////////////// TASKS ///////////////////////////
@@ -86,25 +93,37 @@ void User_task0(void)
 {
     uint32_t local = 0;
 
-    putstr("User Task #0\n");
+    while(true)
+    {
 
-    while(true);
+    putstr("User Task #0\n");
+    Kernel_yield();
+
+    }
 }
 
 void User_task1(void)
 {
     uint32_t local = 0;
 
-    putstr("User Task #1\n");
+    while(true)
+    {
 
-    while(true);
+    putstr("User Task #1\n");
+    Kernel_yield();
+
+    }
 }
 
 void User_task2(void)
 {
     uint32_t local = 0;
 
-    putstr("User Task #2\n");
+    while(true)
+    {
 
-    while(true);
+    putstr("User Task #2\n");
+    Kernel_yield();
+
+    }
 }
